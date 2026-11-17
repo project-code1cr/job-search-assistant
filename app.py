@@ -5,6 +5,7 @@ import re
 import sqlite3
 from contextlib import asynccontextmanager, closing
 from pathlib import Path
+from tempfile import gettempdir
 from typing import Literal
 
 import httpx
@@ -18,7 +19,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from typing_extensions import Annotated
 
 ROOT = Path(__file__).resolve().parent
-DATABASE = ROOT / "jobs.sqlite"
+# Vercel mounts deployed source as read-only. The sample catalog is rebuilt at startup.
+DATABASE = (Path(gettempdir()) if os.getenv("VERCEL") == "1" else ROOT) / "jobs.sqlite"
 SEMANTIC_WEIGHT = 0.7
 logger = logging.getLogger(__name__)
 
