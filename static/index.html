@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Search Assistant</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; background: #f5f7fa; color: #18273a; font: 16px/1.55 Inter, system-ui, sans-serif; }
+main { max-width: 860px; margin: 0 auto; padding: 48px 20px; }
+h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; margin: 0; letter-spacing: -.045em; }
+h2, p { margin: 0 0 .6rem; }
+header p { margin: .85rem 0 1.6rem; color: #48566a; }
+form, article { border: 1px solid #dbe3eb; border-radius: 14px; background: white; padding: 20px; }
+label { display: block; font-weight: 650; margin-bottom: .4rem; }
+textarea, select, button { font: inherit; border-radius: 8px; padding: .55rem .75rem; }
+textarea { display: block; width: 100%; resize: vertical; border: 1px solid #aebccc; }
+select { border: 1px solid #aebccc; background: white; }
+button { cursor: pointer; border: 1px solid #174d7a; background: #174d7a; color: white; }
+button:disabled { opacity: .6; cursor: wait; }
+.secondary { color: #174d7a; background: transparent; }
+.controls { display: flex; align-items: end; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+#status, .muted { color: #48566a; font-size: .9rem; }
+#status { margin-top: 20px; }
+#results { display: grid; gap: 12px; }
+article h2 { font-size: 1.25rem; margin-bottom: 0; }
+article button { margin-top: .25rem; }
+.note { margin-top: .75rem; padding-left: .8rem; border-left: 3px solid #b9cfe2; }
+.note p { margin: .2rem 0; }
+</style>
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Job Search Assistant</h1>
+    <p>Compare your skills and projects with sample internships.</p>
+  </header>
+  <form id="search">
+    <label for="profile">Skills and experience</label>
+    <textarea id="profile" rows="5" required minlength="5" maxlength="1500" placeholder="I built a Python API with FastAPI and used SQL to store application data."></textarea>
+    <div class="controls">
+      <div>
+        <label for="mode">Work mode</label>
+        <select id="mode"><option>Any</option><option>Remote</option><option>Hybrid</option><option>On-site</option></select>
+      </div>
+      <div>
+        <label for="method">Ranking</label>
+        <select id="method"><option value="default">Recommended</option><option value="keyword">Keyword baseline</option></select>
+      </div>
+      <button type="submit">Find matches</button>
+      <button type="button" class="secondary" id="example">Use example</button>
+    </div>
+  </form>
+  <p id="status" role="status"></p>
+  <section id="results" aria-label="Job matches"></section>
+</main>
+</body>
+</html>
